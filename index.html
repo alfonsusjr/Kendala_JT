@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Kendala Jaringan District Madiun</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#eef2f7;
+    color:#111827;
+}
+
+/* LOGIN */
+
+#loginPage{
+    width:100%;
+    height:100vh;
+    background:
+    linear-gradient(rgba(8,22,50,.75),rgba(8,22,50,.75)),
+    url('TLT.jpg') center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:420px;
+    background:rgba(255,255,255,.96);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,.3);
+}
+
+.login-box h1{
+    text-align:center;
+    margin-bottom:10px;
+    color:#081632;
+}
+
+.login-box p{
+    text-align:center;
+    margin-bottom:25px;
+    color:#666;
+}
+
+.login-box input{
+    width:100%;
+    padding:16px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:12px;
+    background:#f1f5f9;
+    font-size:15px;
+}
+
+.password-box{
+    position:relative;
+}
+
+.show-pass{
+    position:absolute;
+    right:15px;
+    top:17px;
+    cursor:pointer;
+    font-size:13px;
+    color:#081632;
+    font-weight:600;
+}
+
+.login-box button{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#081632;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+#errorText{
+    margin-top:15px;
+    color:red;
+    text-align:center;
+}
+
+/* DASHBOARD */
+
+#dashboard{
+    display:none;
+    padding:20px;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#081632,#12305e);
+    color:white;
+    padding:20px;
+    border-radius:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.header-left h1{
+    font-size:28px;
+}
+
+.header-left p{
+    opacity:.8;
+    margin-top:5px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.clock-box{
+    text-align:right;
+}
+
+#clock{
+    font-size:34px;
+    font-weight:700;
+}
+
+#dateNow{
+    font-size:13px;
+    opacity:.8;
+}
+
+.logout-btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    background:#dc2626;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* CARD */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card h3{
+    color:#666;
+    margin-bottom:10px;
+}
+
+.card h1{
+    font-size:42px;
+}
+
+/* CALCULATOR */
+
+.calculator{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.calculator h2{
+    margin-bottom:20px;
+    color:#081632;
+}
+
+.calc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.calc-grid input{
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:15px;
+}
+
+.calc-grid button{
+    grid-column:span 2;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#081632;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.calc-result{
+    margin-top:20px;
+    background:#f8fafc;
+    padding:20px;
+    border-radius:15px;
+    line-height:2;
+}
+
+/* SEARCH */
+
+.search-box{
+    margin-bottom:20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    background:white;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    font-size:15px;
+}
+
+/* TABLE */
+
+.table-container{
+    background:white;
+    border-radius:20px;
+    overflow:auto;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1700px;
+}
+
+thead{
+    background:#081632;
+    color:white;
+}
+
+th{
+    padding:16px;
+    text-align:left;
+    font-size:14px;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* BADGE */
+
+.badge{
+    padding:10px 15px;
+    border-radius:30px;
+    color:white;
+    font-size:12px;
+    font-weight:600;
+}
+
+.approve{
+    background:#16a34a;
+}
+
+.reject{
+    background:#dc2626;
+}
+
+.waiting{
+    background:#f59e0b;
+}
+
+/* PAGINATION */
+
+.pagination{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.pagination button{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    background:#081632;
+    color:white;
+    cursor:pointer;
+}
+
+.page-info{
+    font-weight:600;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:25px;
+    text-align:center;
+    color:#666;
+}
+
+@media(max-width:768px){
+
+.calc-grid{
+    grid-template-columns:1fr;
+}
+
+.calc-grid button{
+    grid-column:span 1;
+}
+
+#clock{
+    font-size:24px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <h1>LOGIN</h1>
+
+        <p>Dashboard Kendala Jaringan District Madiun</p>
+
+        <input type="text" id="username" placeholder="Username">
+
+        <div class="password-box">
+
+            <input type="password" id="password" placeholder="Password">
+
+            <span class="show-pass" onclick="togglePassword()">
+                LIHAT
+            </span>
+
+        </div>
+
+        <button onclick="login()">
+            Masuk Dashboard
+        </button>
+
+        <div id="errorText"></div>
+
+    </div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="header-left">
+
+            <h1>Dashboard Kendala Jaringan District Madiun</h1>
+
+
+        </div>
+
+        <div class="header-right">
+
+            <div class="clock-box">
+
+                <div id="clock">00:00:00</div>
+
+                <div id="dateNow">-</div>
+
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div class="cards">
+
+        <div class="card" onclick="filterStatus('ALL')">
+            <h3>Total Data</h3>
+            <h1 id="totalData">0</h1>
+        </div>
+
+        <div class="card" onclick="filterStatus('APPROVE')">
+            <h3>Approve</h3>
+            <h1 id="totalApprove">0</h1>
+        </div>
+
+        <div class="card" onclick="filterStatus('REJECT')">
+            <h3>Reject</h3>
+            <h1 id="totalReject">0</h1>
+        </div>
+
+        <div class="card" onclick="filterStatus('WAITING')">
+            <h3>Waiting</h3>
+            <h1 id="totalWaiting">0</h1>
+        </div>
+
+    </div>
+
+    <!-- CALCULATOR -->
+
+    <div class="calculator">
+
+        <h2>Kalkulator Kelayakan SPH / JT</h2>
+
+        <div class="calc-grid">
+
+            <input type="text" id="rabInput" placeholder="Input RAB (Rp)">
+            <input type="text" id="revenueInput" placeholder="Input Tagihan Bulanan (Rp)">
+
+            <button onclick="hitungJT()">
+                Hitung Kelayakan
+            </button>
+
+        </div>
+
+        <div class="calc-result" id="calcResult">
+            Silahkan input nilai RAB dan tagihan bulanan.
+        </div>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+        type="text"
+        id="searchInput"
+        placeholder="Cari pelanggan / Nomer Order / STO / alamat..."
+        onkeyup="searchData()">
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <table id="dataTable">
+
+            <thead>
+
+                <tr>
+                    <th>Status JT</th>
+                    <th>Nomer Order</th>
+                    <th>C2R</th>
+                    <th>DATEL</th>
+                    <th>STO</th>
+                    <th>NAMA PELANGGAN</th>
+                    <th>Alamat Instalasi</th>
+                    <th>RAB IHLD</th>
+                    <th>Nilai Kontrak</th>
+                </tr>
+
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+    </div>
+
+    <!-- PAGINATION -->
+
+    <div class="pagination">
+
+        <button onclick="prevPage()">Prev</button>
+
+        <div class="page-info" id="pageInfo">
+            Halaman 1
+        </div>
+
+        <button onclick="nextPage()">Next</button>
+
+    </div>
+
+    <div class="footer">
+        CP Website : Alfonsus Siahaan - OFF 2 Project Operation (082223651160)
+    </div>
+
+</div>
+
+<script>
+
+/* LOGIN */
+
+if(localStorage.getItem("login")==="true"){
+    showDashboard();
+}
+
+function login(){
+
+    const user =
+    document.getElementById("username").value;
+
+    const pass =
+    document.getElementById("password").value;
+
+    if(user==="admin" && pass==="admin"){
+
+        localStorage.setItem("login","true");
+
+        showDashboard();
+
+    }else{
+
+        document.getElementById("errorText").innerText =
+        "Username atau Password Salah";
+
+    }
+
+}
+
+function logout(){
+
+    localStorage.removeItem("login");
+
+    location.reload();
+
+}
+
+function togglePassword(){
+
+    const pass =
+    document.getElementById("password");
+
+    pass.type =
+    pass.type==="password"
+    ? "text"
+    : "password";
+
+}
+
+function showDashboard(){
+
+    document.getElementById("loginPage").style.display =
+    "none";
+
+    document.getElementById("dashboard").style.display =
+    "block";
+
+    startClock();
+
+    loadData();
+
+}
+
+/* GLOBAL */
+
+let allData = [];
+let filteredData = [];
+
+let currentPage = 1;
+const rowsPerPage = 20;
+
+let activeFilter = "ALL";
+let activeSearch = "";
+
+/* GOOGLE SHEET */
+
+const sheetID =
+"1JfBT16cc_WyC2D8WW0pW5YqtAIO6moLbdj_iHE2DBAQ";
+
+const sheetName =
+"NDE usulan b2b";
+
+const apiURL =
+`https://opensheet.elk.sh/${sheetID}/${encodeURIComponent(sheetName)}`;
+
+/* LOAD DATA */
+
+async function loadData(){
+
+    try{
+
+        const response =
+        await fetch(apiURL);
+
+        const data =
+        await response.json();
+
+        if(Array.isArray(data)){
+
+            allData = data;
+
+            preserveCurrentView();
+
+            updateCards();
+
+            renderTable();
+
+        }
+
+    }catch(err){
+
+        console.log("ERROR :",err);
+
+    }
+
+}
+
+/* AUTO REFRESH */
+setInterval(loadData,5000);
+
+/* STATUS JT */
+
+function getStatus(status){
+
+    status = (status || "").toUpperCase();
+
+    /* APPROVE */
+
+    if(
+        status.includes("APPROVE")
+        &&
+        !status.includes("NOT")
+    ){
+        return "APPROVE";
+    }
+
+    /* WAITING */
+
+    if(
+
+        status.includes("WAITING")
+        ||
+        status.includes("WAITING APPROVAL SALES")
+        ||
+        status.includes("LANJUT BATCH")
+        ||
+        status.includes("CARRING ULANG")
+        ||
+        status.includes("CARRYING ULANG")
+        ||
+        status.includes("BUTUH REPAIR")
+        ||
+        status.includes("REPAIR")
+        ||
+        status.includes("AANWIJZING")
+
+    ){
+        return "WAITING";
+    }
+
+    /* REJECT */
+
+    return "REJECT";
+
+}
+
+/* PERTAHANKAN FILTER */
+
+function preserveCurrentView(){
+
+    let tempData = [...allData];
+
+    /* FILTER STATUS */
+
+    if(activeFilter !== "ALL"){
+
+        tempData =
+        tempData.filter(row=>{
+
+            return getStatus(row["Status JT"])
+            === activeFilter;
+
+        });
+
+    }
+
+    /* SEARCH */
+
+    if(activeSearch !== ""){
+
+        tempData =
+        tempData.filter(row=>{
+
+            return JSON.stringify(row)
+            .toLowerCase()
+            .includes(activeSearch);
+
+        });
+
+    }
+
+    filteredData = tempData;
+
+}
+
+/* UPDATE CARD */
+
+function updateCards(){
+
+    let approve = 0;
+    let reject = 0;
+    let waiting = 0;
+
+    allData.forEach(row=>{
+
+        const status =
+        getStatus(row["Status JT"]);
+
+        if(status==="APPROVE") approve++;
+        else if(status==="WAITING") waiting++;
+        else reject++;
+
+    });
+
+    document.getElementById("totalData").innerText =
+    allData.length;
+
+    document.getElementById("totalApprove").innerText =
+    approve;
+
+    document.getElementById("totalReject").innerText =
+    reject;
+
+    document.getElementById("totalWaiting").innerText =
+    waiting;
+
+}
+
+/* FILTER */
+
+function filterStatus(type){
+
+    activeFilter = type;
+
+    currentPage = 1;
+
+    preserveCurrentView();
+
+    renderTable();
+
+}
+
+/* SEARCH */
+
+function searchData(){
+
+    activeSearch =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    currentPage = 1;
+
+    preserveCurrentView();
+
+    renderTable();
+
+}
+
+/* AUTO DETECT COLUMN */
+
+function getColumn(row, possibleNames){
+
+    for(let name of possibleNames){
+
+        if(
+            row[name] !== undefined &&
+            row[name] !== null &&
+            row[name] !== ""
+        ){
+            return row[name];
+        }
+
+    }
+
+    return "-";
+
+}
+
+/* TABLE */
+
+function renderTable(){
+
+    const tbody =
+    document.querySelector("#dataTable tbody");
+
+    if(!tbody) return;
+
+    tbody.innerHTML = "";
+
+    const start =
+    (currentPage - 1) * rowsPerPage;
+
+    const end =
+    start + rowsPerPage;
+
+    const pageData =
+    filteredData.slice(start,end);
+
+    if(pageData.length===0){
+
+        tbody.innerHTML = `
+
+        <tr>
+
+            <td colspan="9"
+            style="
+                text-align:center;
+                padding:40px;
+                font-weight:600;
+                color:#666;
+            ">
+
+                Data tidak ditemukan
+
+            </td>
+
+        </tr>
+
+        `;
+
+        updatePagination();
+
+        return;
+
+    }
+
+    pageData.forEach(row=>{
+
+        const tr =
+        document.createElement("tr");
+
+        const status =
+        getStatus(row["Status JT"]);
+
+        let badgeClass = "reject";
+
+        if(status==="APPROVE"){
+            badgeClass = "approve";
+        }
+
+        if(status==="WAITING"){
+            badgeClass = "waiting";
+        }
+
+        const order =
+        getColumn(row,[
+
+            "Nomer Order",
+            "Nomor Order",
+            "NCX",
+            "Starclick",
+            "Nomer NCX/Starclick"
+
+        ]);
+
+        const rab =
+        getColumn(row,[
+
+            "RAB IHLD",
+            "RAB",
+            "TOTAL RAB",
+            "Nilai RAB"
+
+        ]);
+
+        const kontrak =
+        getColumn(row,[
+
+            "Nilai Kontrak",
+            "Revenue",
+            "Tagihan Bulanan"
+
+        ]);
+
+        tr.innerHTML = `
+
+        <td>
+            <span class="badge ${badgeClass}">
+                ${row["Status JT"] || "-"}
+            </span>
+        </td>
+
+        <td>${order}</td>
+
+        <td>${row["C2R"] || "-"}</td>
+
+        <td>${row["DATEL"] || "-"}</td>
+
+        <td>${row["STO"] || "-"}</td>
+
+        <td>${row["NAMA PELANGGAN"] || "-"}</td>
+
+        <td>${row["Alamat Instalasi"] || "-"}</td>
+
+        <td>${rab}</td>
+
+        <td>${kontrak}</td>
+
+        `;
+
+        tbody.appendChild(tr);
+
+    });
+
+    updatePagination();
+
+}
+
+/* PAGINATION */
+
+function updatePagination(){
+
+    const totalPages =
+    Math.ceil(filteredData.length / rowsPerPage) || 1;
+
+    document.getElementById("pageInfo").innerText =
+    `Halaman ${currentPage} dari ${totalPages}`;
+
+}
+
+function nextPage(){
+
+    const totalPages =
+    Math.ceil(filteredData.length / rowsPerPage);
+
+    if(currentPage < totalPages){
+
+        currentPage++;
+
+        renderTable();
+
+    }
+
+}
+
+function prevPage(){
+
+    if(currentPage > 1){
+
+        currentPage--;
+
+        renderTable();
+
+    }
+
+}
+
+/* FORMAT RUPIAH */
+
+function formatRupiah(angka){
+
+    return new Intl.NumberFormat('id-ID',{
+        style:'currency',
+        currency:'IDR',
+        minimumFractionDigits:0
+    }).format(angka);
+
+}
+
+/* FORMAT INPUT */
+
+document.getElementById("rabInput")
+.addEventListener("input",function(){
+
+    let value =
+    this.value.replace(/\D/g,'');
+
+    this.value =
+    new Intl.NumberFormat('id-ID')
+    .format(value);
+
+});
+
+document.getElementById("revenueInput")
+.addEventListener("input",function(){
+
+    let value =
+    this.value.replace(/\D/g,'');
+
+    this.value =
+    new Intl.NumberFormat('id-ID')
+    .format(value);
+
+});
+
+/* KALKULATOR */
+
+function hitungJT(){
+
+    const rab =
+    parseInt(
+        document.getElementById("rabInput")
+        .value
+        .replace(/\./g,'')
+    ) || 0;
+
+    const revenue =
+    parseInt(
+        document.getElementById("revenueInput")
+        .value
+        .replace(/\./g,'')
+    ) || 0;
+
+    const yearly =
+    revenue * 12;
+
+    const c2r =
+    yearly > 0
+    ? (rab/yearly)*100
+    : 999;
+
+    const minimalRevenue =
+    Math.ceil(rab / 0.3 / 12);
+
+    let status = "LAYAK";
+    let warna = "green";
+
+    if(revenue <= 0){
+
+        status = "TIDAK LAYAK";
+        warna = "red";
+
+    }
+
+    else if(c2r > 30){
+
+        status = "TIDAK LAYAK";
+        warna = "red";
+
+    }
+
+    document.getElementById("calcResult").innerHTML = `
+
+    <div><b>Nilai RAB :</b> ${formatRupiah(rab)}</div>
+
+    <div><b>Tagihan Bulanan :</b> ${formatRupiah(revenue)}</div>
+
+    <div><b>Revenue Tahunan :</b> ${formatRupiah(yearly)}</div>
+
+    <div><b>Persentase C2R :</b> ${c2r.toFixed(2)}%</div>
+
+    <div style="
+        font-size:22px;
+        font-weight:700;
+        color:${warna};
+    ">
+        Status : ${status}
+    </div>
+
+    <hr style="margin:15px 0;">
+
+    <div>
+        Minimal tagihan per bulan agar layak:
+    </div>
+
+    <div style="
+        font-size:28px;
+        font-weight:700;
+        color:#081632;
+        margin-top:10px;
+    ">
+        ${formatRupiah(minimalRevenue)}
+    </div>
+
+    `;
+
+}
+
+/* CLOCK */
+
+function startClock(){
+
+    setInterval(()=>{
+
+        const now = new Date();
+
+        document.getElementById("clock").innerText =
+        now.toLocaleTimeString("id-ID");
+
+        document.getElementById("dateNow").innerText =
+        now.toLocaleDateString("id-ID",{
+
+            weekday:'long',
+            day:'numeric',
+            month:'long',
+            year:'numeric'
+
+        });
+
+    },1000);
+
+}
+
+</script>
+
+</body>
+</html>
