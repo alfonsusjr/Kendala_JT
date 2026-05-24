@@ -123,11 +123,6 @@ body{
     font-size:28px;
 }
 
-.header-left p{
-    opacity:.8;
-    margin-top:5px;
-}
-
 .header-right{
     display:flex;
     align-items:center;
@@ -311,6 +306,10 @@ tbody tr:hover{
     background:#f59e0b;
 }
 
+.golive{
+    background:#2563eb;
+}
+
 /* PAGINATION */
 
 .pagination{
@@ -407,7 +406,6 @@ tbody tr:hover{
 
             <h1>Dashboard Kendala Jaringan District Madiun</h1>
 
-
         </div>
 
         <div class="header-right">
@@ -450,6 +448,11 @@ tbody tr:hover{
         <div class="card" onclick="filterStatus('WAITING')">
             <h3>Waiting</h3>
             <h1 id="totalWaiting">0</h1>
+        </div>
+
+        <div class="card" onclick="filterStatus('GOLIVE')">
+            <h3>GO LIVE</h3>
+            <h1 id="totalGolive">0</h1>
         </div>
 
     </div>
@@ -657,6 +660,7 @@ async function loadData(){
 }
 
 /* AUTO REFRESH */
+
 setInterval(loadData,5000);
 
 /* STATUS JT */
@@ -664,6 +668,16 @@ setInterval(loadData,5000);
 function getStatus(status){
 
     status = (status || "").toUpperCase();
+
+    /* GO LIVE */
+
+    if(
+        status.includes("GOLIVE")
+        ||
+        status.includes("GO LIVE")
+    ){
+        return "GOLIVE";
+    }
 
     /* APPROVE */
 
@@ -687,8 +701,6 @@ function getStatus(status){
         ||
         status.includes("CARRING ULANG")
         ||
-        status.includes("GOLIVE")
-        ||
         status.includes("BUTUH REPAIR")
         ||
         status.includes("REPAIR")
@@ -705,13 +717,11 @@ function getStatus(status){
 
 }
 
-/* PERTAHANKAN FILTER */
+/* FILTER */
 
 function preserveCurrentView(){
 
     let tempData = [...allData];
-
-    /* FILTER STATUS */
 
     if(activeFilter !== "ALL"){
 
@@ -724,8 +734,6 @@ function preserveCurrentView(){
         });
 
     }
-
-    /* SEARCH */
 
     if(activeSearch !== ""){
 
@@ -751,6 +759,7 @@ function updateCards(){
     let approve = 0;
     let reject = 0;
     let waiting = 0;
+    let golive = 0;
 
     allData.forEach(row=>{
 
@@ -759,6 +768,7 @@ function updateCards(){
 
         if(status==="APPROVE") approve++;
         else if(status==="WAITING") waiting++;
+        else if(status==="GOLIVE") golive++;
         else reject++;
 
     });
@@ -774,6 +784,9 @@ function updateCards(){
 
     document.getElementById("totalWaiting").innerText =
     waiting;
+
+    document.getElementById("totalGolive").innerText =
+    golive;
 
 }
 
@@ -892,6 +905,10 @@ function renderTable(){
 
         if(status==="WAITING"){
             badgeClass = "waiting";
+        }
+
+        if(status==="GOLIVE"){
+            badgeClass = "golive";
         }
 
         const order =
